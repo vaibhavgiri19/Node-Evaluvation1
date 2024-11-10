@@ -1,13 +1,14 @@
+// routes/postRoutes.js
 const express = require('express');
-const { createPost, getAllPosts, getPostById, updatePost, deletePost } = require('../controllers/postController');
-const validation = require('../middleware/validation');
-
 const router = express.Router();
+const postController = require('../controllers/postController');
+const { validatePost } = require('../middlewares/validation');
 
-router.post('/', validation, createPost);
-router.get('/', getAllPosts);
-router.get('/:id', getPostById);
-router.put('/:id', validation, updatePost);
-router.delete('/:id', deletePost);
+// CRUD routes for posts
+router.post('/posts', validatePost, postController.createPost);
+router.get('/posts', postController.getAllPosts);
+router.get('/posts/:id', postController.getPostById);
+router.put('/posts/:id', validatePost, postController.updatePost);
+router.delete('/posts/:id', postController.deletePost);
 
 module.exports = router;
